@@ -4,12 +4,26 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float runSpeed = 10f;
-    public float jumpHeight = 1.9f;
+    [Header("References")]
+    public Camera playerCamera;
+
+    [Header ("General")]
     public float gravityScale = -20f;
 
+    [Header("Movement")]
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
+
+    [Header("Rotation")]
+    public float rotationSensibility = 10f;
+
+    [Header("Jump")]
+    public float jumpHeight = 1.9f;
+
+    private float cameraVerticalAngle;
     Vector3 moveInput = Vector3.zero;
+    Vector3 rotationInput = Vector3.zero;
+    
     CharacterController characterController;
 
     private void Awake()
@@ -20,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Move();
+        Look();
     }
 
     private void Move()
@@ -27,7 +42,8 @@ public class PlayerController : MonoBehaviour
         if (characterController.isGrounded)
         {
             moveInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            if (Input.GetButtonDown("Sprint"))
+            moveInput = Vector3.ClampMagnitude(moveInput, 1f);
+            if (Input.GetButton("Sprint"))
             {
                 moveInput = transform.TransformDirection(moveInput) * runSpeed;
             }
@@ -38,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                moveInput.y = Mathf.Sqrt(jumpHeight + -2f * gravityScale);
+                moveInput.y = Mathf.Sqrt(jumpHeight * -2f * gravityScale);
             }
         }
 
@@ -46,5 +62,15 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveInput * Time.deltaTime);
     }
 
-    
+    private void Look()
+    {
+        rotationInput.x = Input.GetAxis("Mouse X") * rotationSensibility * Time.deltaTime;
+        rotationInput.y = Input.GetAxis("Mouse Y") * rotationSensibility * Time.deltaTime;
+
+        cameraVerticalAngle += rotationInput.y;
+        cameraVerticalAngle = Mathf.Clamp(cameraVerticalAngle, -70, 70);
+
+        transform.Rotate(Vector3.up * rotationInput.x);
+        playerCamera.transform.localRotation = Quaternion.Euler(-cameraVerticalAngle, 0f, 0f);
+    }
 }
