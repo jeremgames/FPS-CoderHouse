@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpHeight = 1.9f;
 
+    [Header("Waepons")]
+    public GameObject bullet;
+    public Transform firePoint;
+
     public Animator anim;
     private float cameraVerticalAngle;
     Vector3 moveInput = Vector3.zero;
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         Move();
         Look();
+        Shoot();
     }
 
     private void Move()
@@ -78,4 +83,11 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(-cameraVerticalAngle, 0f, 0f);
     }
 
+    private void Shoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+    }
 }
