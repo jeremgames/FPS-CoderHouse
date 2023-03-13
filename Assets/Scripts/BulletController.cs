@@ -8,7 +8,8 @@ public class BulletController : MonoBehaviour
     public float bulletLifeTime;
     public Rigidbody rb;
     public GameObject impactEffect;
-    public int damage;
+    public int damage = 1;
+    [SerializeField]private bool damageEnemy, damagePlayer;
 
     private void Update()
     {
@@ -22,9 +23,13 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && damageEnemy)
         {
             other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
+        }
+        if (other.gameObject.tag == "Player" && damagePlayer)
+        {
+            //other.gameObject.GetComponent<EnemyHealthController>().DamageEnemy(damage);
         }
 
         Destroy(gameObject);

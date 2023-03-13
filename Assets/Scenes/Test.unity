@@ -110,7 +110,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.4
+    agentClimb: 0.6
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -123,7 +123,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 665d41726ad4f4e4cbaa06d1a38338f4, type: 2}
 --- !u!1001 &264341425
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,20 +131,39 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
-        type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 264341426}
-    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 10
+    - target: {fileID: 267885865, guid: becb888111ea86e4281e441e7524fb25, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 1928559889976862941, guid: becb888111ea86e4281e441e7524fb25,
+    - target: {fileID: 267885866, guid: becb888111ea86e4281e441e7524fb25, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.522
+      objectReference: {fileID: 0}
+    - target: {fileID: 1209200576230539485, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
-      propertyPath: m_Constraints
-      value: 112
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 6205030029203381078, guid: 08c531c1b26447446bb2d059b6480e76,
+        type: 3}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 267885866}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: distanceToStop
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3530666342128246086, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
@@ -154,7 +173,7 @@ PrefabInstance:
     - target: {fileID: 3530666342128246086, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.4733934
+      value: 13.94
       objectReference: {fileID: 0}
     - target: {fileID: 3530666342128246086, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
@@ -164,7 +183,7 @@ PrefabInstance:
     - target: {fileID: 3530666342128246086, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.318143
+      value: 7.16
       objectReference: {fileID: 0}
     - target: {fileID: 3530666342128246086, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
@@ -206,11 +225,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3530666342128246090, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: becb888111ea86e4281e441e7524fb25, type: 3}
---- !u!54 &264341426 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1928559889976862941, guid: becb888111ea86e4281e441e7524fb25,
+--- !u!4 &267885866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 267885866, guid: becb888111ea86e4281e441e7524fb25,
     type: 3}
   m_PrefabInstance: {fileID: 264341425}
   m_PrefabAsset: {fileID: 0}
@@ -231,7 +255,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &301774742
 BoxCollider:
@@ -328,7 +352,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &483295284
 BoxCollider:
@@ -425,7 +449,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &789342634
 BoxCollider:
@@ -514,7 +538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 801993180}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Guns Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880875466}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +722,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1022658373
 BoxCollider:
@@ -790,7 +814,7 @@ GameObject:
   - component: {fileID: 1215106787}
   - component: {fileID: 1215106786}
   - component: {fileID: 1215106785}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -831,7 +855,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 80933851023e81c4fa140b85642e2b14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -893,7 +917,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1220595537
 Transform:
@@ -1087,7 +1111,7 @@ GameObject:
   - component: {fileID: 1436201565}
   - component: {fileID: 1436201568}
   - component: {fileID: 1436201569}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1295,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1527997848
 MeshCollider:
@@ -1396,7 +1420,7 @@ GameObject:
   - component: {fileID: 1603664514}
   - component: {fileID: 1603664513}
   - component: {fileID: 1603664512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Gun1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1451,7 +1475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6d4db2b92f4e2cb448a114b38efd5cd6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1493,7 +1517,7 @@ GameObject:
   - component: {fileID: 1666795546}
   - component: {fileID: 1666795545}
   - component: {fileID: 1666795548}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
