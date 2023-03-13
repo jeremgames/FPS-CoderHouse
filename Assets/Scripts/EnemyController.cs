@@ -6,23 +6,24 @@ using UnityEngine.Animations;
 
 public class EnemyController : MonoBehaviour
 {
+    public NavMeshAgent agent;
+    
     private bool pursuit;
     public float distanceToPursuit = 10f, distanceToLose = 15f, distanceToStop;
-    
-    public NavMeshAgent agent;
     private Vector3 targetPoint, startPoint;
-
     public float keepPursuitTime = 5f;
     private float pursuitCounter;
 
     public GameObject bullet;
     public Transform firePoint;
-    public float fireRate;
-    private float fireCount;
+    public float fireRate, waitBetweenShots = 2f, timeToShoot = 1f;
+    private float fireCount, shotWaitCounter, shootTimeCounter;
 
     private void Start()
     {
         startPoint = transform.position;
+        shootTimeCounter = timeToShoot;
+        shotWaitCounter = waitBetweenShots;
     }
 
     private void Update()
@@ -41,7 +42,8 @@ public class EnemyController : MonoBehaviour
             if (Vector3.Distance(transform.position, targetPoint) < distanceToPursuit)
             {
                 pursuit = true;
-                fireCount = 1f;
+                shootTimeCounter = timeToShoot;
+                shotWaitCounter = waitBetweenShots;
             }
             if (pursuitCounter > 0)
             {
@@ -61,13 +63,34 @@ public class EnemyController : MonoBehaviour
                 pursuit = false;
                 pursuitCounter = keepPursuitTime;
             }
-            
-            fireCount -= Time.deltaTime;    
 
-            if (fireCount <= 0)
+            if(shotWaitCounter > 0)
             {
-                fireCount = fireRate;
-                Instantiate(bullet, firePoint.position, firePoint.rotation);
+                shotWaitCounter-= Time.deltaTime;
+                if(shotWaitCounter <=0)
+                {
+                    shootTimeCounter = timeToShoot;
+                }
+            }
+            else
+            {
+                shootTimeCounter -= Time.deltaTime;
+
+                if (shootTimeCounter > 0)
+                {
+                    fireCount -= Time.deltaTime;
+
+                    if (fireCount <= 0)
+                    {
+                        fireCount = fireRate;
+                        Instantiate(bullet, firePoint.position, firePoint.rotation);
+                    }
+                    agent.destination = transform.position;
+                }
+                else
+                {
+                    shotWaitCounter = waitBetweenShots;
+                }
             }
         }
     }
