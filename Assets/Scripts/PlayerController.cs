@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpHeight = 1.9f;
 
+    public Animator anim;
     private float cameraVerticalAngle;
     Vector3 moveInput = Vector3.zero;
     Vector3 rotationInput = Vector3.zero;
@@ -60,6 +61,9 @@ public class PlayerController : MonoBehaviour
 
         moveInput.y += gravityScale * Time.deltaTime;
         characterController.Move(moveInput * Time.deltaTime);
+
+        anim.SetFloat("walkSpeed", moveInput.magnitude);
+
     }
 
     private void Look()
@@ -73,4 +77,5 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * rotationInput.x);
         playerCamera.transform.localRotation = Quaternion.Euler(-cameraVerticalAngle, 0f, 0f);
     }
+
 }
