@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
+    public static PlayerController Instance;
     public Camera playerCamera;
 
     [Header ("General")]
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        Instance = this;
     }
 
     private void Update()

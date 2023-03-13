@@ -1,22 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class EnemyController : MonoBehaviour
 {
-    public int currentHealth = 5;
+    public float moveSpeed;
+    public Rigidbody rb;
+    private bool pursuit;
+    private float distanceToPursuit = 10f, distanceToLose = 15f;
+    private int damageAmount;
+
+    private Vector3 targetPoint;
 
     private void Update()
     {
-        
+        Pursuit();
     }
 
-    public void DamageEnemy(int damageAmount)
+    
+    private void Pursuit()
     {
-        currentHealth -= damageAmount;
-        if(currentHealth <= 0)
+        targetPoint = PlayerController.Instance.transform.position;
+        targetPoint.y = transform.position.y;
+
+        if(!pursuit)
         {
-            Destroy(gameObject);
+            if(Vector3.Distance(transform.position, targetPoint) < distanceToPursuit)
+            {
+                pursuit = true;
+            }
         }
+        else
+        {
+
+            transform.LookAt(targetPoint);
+            rb.velocity = transform.forward * moveSpeed;
+
+            if(Vector3.Distance(transform.position, targetPoint) < distanceToLose)
+            {
+                pursuit = false;
+            }
+        }
+
     }
 }
