@@ -11,9 +11,9 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    public void DamageEnemy()
+    public void DamageEnemy(int damageAmount)
     {
-        currentHealth--;
+        currentHealth -= damageAmount;
         if(currentHealth <= 0)
         {
             Destroy(gameObject);

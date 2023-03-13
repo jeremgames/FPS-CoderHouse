@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour
     public float bulletLifeTime;
     public Rigidbody rb;
     public GameObject impactEffect;
+    public int damage;
 
     private void Update()
     {
@@ -23,7 +24,7 @@ public class BulletController : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<EnemyController>().DamageEnemy();
+            other.gameObject.GetComponent<EnemyController>().DamageEnemy(damage);
         }
 
         Destroy(gameObject);
