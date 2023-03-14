@@ -17,6 +17,8 @@ public class PlayerHealthController : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        UIController.Instance.healthSlider.maxValue= maxHealth;
+        UIController.Instance.healthSlider.value= currentHealth;
     }
     private void Update()
     {
@@ -36,6 +38,7 @@ public class PlayerHealthController : MonoBehaviour
                 gameObject.SetActive(false);
             }
             invincibleCounter = invincibleLenght;
+            UIController.Instance.healthSlider.value = currentHealth;
         }
     }
 }
