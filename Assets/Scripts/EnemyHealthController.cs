@@ -13,5 +13,4 @@ public class EnemyHealthController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
 }

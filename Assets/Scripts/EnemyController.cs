@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.Animations;
 
 public class EnemyController : MonoBehaviour
-{
+{ 
     public NavMeshAgent agent;
     
     private bool pursuit;
@@ -86,33 +86,36 @@ public class EnemyController : MonoBehaviour
             }
             else
             {
-                shootTimeCounter -= Time.deltaTime;
-
-                if (shootTimeCounter > 0)
+                if (PlayerController.Instance.gameObject.activeInHierarchy)
                 {
-                    fireCount -= Time.deltaTime;
+                    shootTimeCounter -= Time.deltaTime;
 
-                    if (fireCount <= 0)
+                    if (shootTimeCounter > 0)
                     {
-                        fireCount = fireRate;
-                        firePoint.LookAt(PlayerController.Instance.transform.position + new Vector3(0f,1.5f,0f));
-                        Vector3 targetDirection = PlayerController.Instance.transform.position - transform.position;
-                        float angle = Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up);
-                        if (Mathf.Abs(angle) < 30f)
+                        fireCount -= Time.deltaTime;
+
+                        if (fireCount <= 0)
                         {
-                            Instantiate(bullet, firePoint.position, firePoint.rotation);
-                            anim.SetTrigger("fireShot");
+                            fireCount = fireRate;
+                            firePoint.LookAt(PlayerController.Instance.transform.position + new Vector3(0f, 1.5f, 0f));
+                            Vector3 targetDirection = PlayerController.Instance.transform.position - transform.position;
+                            float angle = Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up);
+                            if (Mathf.Abs(angle) < 30f)
+                            {
+                                Instantiate(bullet, firePoint.position, firePoint.rotation);
+                                anim.SetTrigger("fireShot");
+                            }
+                            else
+                            {
+                                shotWaitCounter = waitBetweenShots;
+                            }
                         }
-                        else
-                        {
-                            shotWaitCounter = waitBetweenShots;
-                        }
+                        agent.destination = transform.position;
                     }
-                    agent.destination = transform.position;
-                }
-                else
-                {
-                    shotWaitCounter = waitBetweenShots;
+                    else
+                    {
+                        shotWaitCounter = waitBetweenShots;
+                    }
                 }
                 anim.SetBool("isMoving", false);
             }
