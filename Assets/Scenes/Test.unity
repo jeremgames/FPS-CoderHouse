@@ -1178,6 +1178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436201567}
   - component: {fileID: 1436201566}
+  - component: {fileID: 1436201570}
   - component: {fileID: 1436201565}
   - component: {fileID: 1436201568}
   - component: {fileID: 1436201569}
@@ -1204,7 +1205,7 @@ MonoBehaviour:
   gravityScale: -20
   walkSpeed: 6
   runSpeed: 15
-  rotationSensibility: 50
+  rotationSensibility: 150
   jumpHeight: 1.9
   bullet: {fileID: 1739040394654646618, guid: ad50efe2dec6d7947a68cd26398f840c, type: 3}
   firePoint: {fileID: 880875466}
@@ -1280,6 +1281,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1436201570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436201564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2f0fce6f56e5743b878f7235903619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 50
+  currentHealth: 0
+  invincibleLenght: 1
 --- !u!1 &1461157254
 GameObject:
   m_ObjectHideFlags: 0

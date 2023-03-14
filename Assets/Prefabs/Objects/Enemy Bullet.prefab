@@ -128,12 +128,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5431ac79e0e9c1848a64e79795c48908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
+  bulletSpeed: 15
   bulletLifeTime: 5
   rb: {fileID: 6205030029203381081}
   impactEffect: {fileID: 3795298516728794968, guid: 04033f7a4d2537543a4871c83c545250,
     type: 3}
-  damage: 1
+  damage: 10
   damageEnemy: 0
   damagePlayer: 1
 --- !u!96 &6405282496767220849
