@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
     public GameObject bullet;
     public Transform firePoint;
-    public float fireRate, waitBetweenShots = 2f, timeToShoot = 1f;
+    public float fireRate, waitBetweenShots = 1f, timeToShoot = 0.5f;
     private float fireCount, shotWaitCounter, shootTimeCounter;
 
     public Animator anim;
