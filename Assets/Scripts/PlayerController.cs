@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
 
     public GunController activeGun;
+    public List<GunController> allGuns = new List<GunController>();
+    public int currentGun;
 
     public Animator anim;
     private float cameraVerticalAngle;
@@ -39,7 +43,11 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         Instance = this;
     }
-
+    private void Start()
+    {
+        activeGun = allGuns[currentGun];
+        activeGun.gameObject.SetActive(true);
+    }
     private void Update()
     {
         Move();
@@ -112,6 +120,11 @@ public class PlayerController : MonoBehaviour
                 FireShot();
             }
         }
+
+        if(Input.GetButtonDown("Switch Gun"))
+        {
+            SwitchGun();
+        }
     }
 
     public void FireShot()
@@ -123,5 +136,18 @@ public class PlayerController : MonoBehaviour
             activeGun.fireCounter = activeGun.fireRate;
             //UIController.Instance.ammoSlider.value = currentAmmo;
         }
+    }
+
+    public void SwitchGun()
+    {
+        activeGun.gameObject.SetActive(false);
+        currentGun++;
+        if(currentGun >= allGuns.Count)
+        {
+            currentGun = 0;
+        }
+        activeGun = allGuns[currentGun];
+        activeGun.gameObject.SetActive(true);
+        //UIController.Instance.ammoSlider.value = currentAmmo;
     }
 }
