@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    public GunController activeGun;
+
     public Animator anim;
     private float cameraVerticalAngle;
     Vector3 moveInput = Vector3.zero;
@@ -101,8 +103,20 @@ public class PlayerController : MonoBehaviour
             {
                 firePoint.LookAt(playerCamera.transform.position + (playerCamera.transform.forward * 30f));
             }
-
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            FireShot();
         }
+        if(Input.GetMouseButton(0) && activeGun.canAutoFire)
+        {
+            if(activeGun.fireCounter <= 0)
+            {
+                FireShot();
+            }
+        }
+    }
+
+    public void FireShot()
+    {
+        Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
+        activeGun.fireCounter = activeGun.fireRate;
     }
 }
