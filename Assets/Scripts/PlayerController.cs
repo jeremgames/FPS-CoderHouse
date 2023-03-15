@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public GunController activeGun;
     public List<GunController> allGuns = new List<GunController>();
+    public List<GunController> unlockableGuns = new List<GunController>();
     public int currentGun;
 
     public Animator anim;
@@ -149,5 +150,25 @@ public class PlayerController : MonoBehaviour
         activeGun = allGuns[currentGun];
         activeGun.gameObject.SetActive(true);
         //UIController.Instance.ammoSlider.value = currentAmmo;
+    }
+
+    public void AddGun(string gunToAdd)
+    {
+        bool gunUnlocked = false;
+        if(unlockableGuns.Count > 0)
+        {
+            for(int i = 0; i < unlockableGuns.Count; i++)
+            {
+                gunUnlocked= true;
+                allGuns.Add(unlockableGuns[i]);
+                unlockableGuns.RemoveAt(i);
+                i = unlockableGuns.Count;
+            }
+        }
+        if(gunUnlocked)
+        {
+            currentGun = allGuns.Count - 2;
+            SwitchGun();
+        }
     }
 }

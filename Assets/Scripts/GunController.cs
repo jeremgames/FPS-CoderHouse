@@ -8,6 +8,7 @@ public class GunController : MonoBehaviour
     public bool canAutoFire;
     public float fireRate;
     public int maxAmmo, currentAmmo, pickupAmount;
+    public string gunName;
     [HideInInspector] public float fireCounter;
 
     private void Start()

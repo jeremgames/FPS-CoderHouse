@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoPickUp : MonoBehaviour
+public class WeaponPickUp : MonoBehaviour
 {
+    public string theGun;
     private bool collected;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !collected)
+        if (other.tag == "Player" && !collected)
         {
-            PlayerController.Instance.activeGun.GetAmmo();
-            collected= true;
+            PlayerController.Instance.AddGun(theGun);
+            collected = true;
             Destroy(gameObject);
         }
     }
