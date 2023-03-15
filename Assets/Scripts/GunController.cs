@@ -7,7 +7,15 @@ public class GunController : MonoBehaviour
     public GameObject bullet;
     public bool canAutoFire;
     public float fireRate;
+    public int maxAmmo, currentAmmo, pickupAmount;
     [HideInInspector] public float fireCounter;
+
+    private void Start()
+    {
+        currentAmmo = maxAmmo;
+        UIController.Instance.ammoSlider.maxValue = maxAmmo;
+        UIController.Instance.ammoSlider.value = currentAmmo;
+    }
 
     private void Update()
     {
@@ -15,5 +23,12 @@ public class GunController : MonoBehaviour
         {
             fireCounter -= Time.deltaTime;
         }
+    }
+
+    public void GetAmmo()
+    {
+        PlayerController.Instance.activeGun.GetAmmo();
+        currentAmmo += pickupAmount;
+        UIController.Instance.ammoSlider.value = currentAmmo;
     }
 }

@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
     public static UIController Instance;
     public Slider healthSlider;
+    public Slider ammoSlider;
 
 
     private void Awake()
