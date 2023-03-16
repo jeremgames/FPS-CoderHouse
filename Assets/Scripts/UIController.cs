@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     public Slider healthSlider;
     public Slider ammoSlider;
 
+    public GameObject pauseScreen;
 
     private void Awake()
     {
