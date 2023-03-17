@@ -1,124 +1,76 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations;
 
 public class EnemyController : MonoBehaviour
-{ 
+{
     public NavMeshAgent agent;
-    
-    private bool pursuit;
-    public float distanceToPursuit = 10f, distanceToLose = 15f, distanceToStop;
-    private Vector3 targetPoint, startPoint;
-    public float keepPursuitTime = 5f;
-    private float pursuitCounter;
-
     public GameObject bullet;
     public Transform firePoint;
-    public float fireRate, waitBetweenShots = 1f, timeToShoot = 0.5f;
-    private float fireCount, shotWaitCounter, shootTimeCounter;
-
+    public float fireRate;
     public Animator anim;
 
-    private void Start()
+    private Transform playerTransform;
+    private float timeSinceLastShot;
+    private bool canShoot = true;
+
+    void Start()
     {
-        startPoint = transform.position;
-        shootTimeCounter = timeToShoot;
-        shotWaitCounter = waitBetweenShots;
+        playerTransform = PlayerController.Instance.transform;
+        timeSinceLastShot = fireRate;
     }
 
-    private void Update()
+    void Update()
     {
-        Pursuit();
-    }
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
-
-    private void Pursuit()
-    {
-        targetPoint = PlayerController.Instance.transform.position;
-        targetPoint.y = transform.position.y;
-
-        if (!pursuit)
+        if (distanceToPlayer < agent.stoppingDistance)
         {
-            if (Vector3.Distance(transform.position, targetPoint) < distanceToPursuit)
+            // El enemigo está cerca del jugador, así que deja de moverse
+            agent.isStopped = true;
+            anim.SetBool("isMoving", false);
+
+            // Si es posible, dispara al jugador
+            if (canShoot)
             {
-                pursuit = true;
-                shootTimeCounter = timeToShoot;
-                shotWaitCounter = waitBetweenShots;
-            }
-            if (pursuitCounter > 0)
-            {
-                pursuitCounter -= Time.deltaTime;
-                if (pursuitCounter <= 0)
-                {
-                    agent.destination = startPoint;
-                }
-            }
-            if (agent.remainingDistance < 0.25f)
-            {
-                anim.SetBool("isMoving", false);
-            }
-            else
-            {
-                anim.SetBool("isMoving", true);
+                Shoot();
             }
         }
         else
         {
-            agent.destination = targetPoint;
+            // El enemigo está lejos del jugador, así que sigue moviéndose
+            agent.isStopped = false;
+            anim.SetBool("isMoving", true);
 
-            if (Vector3.Distance(transform.position, targetPoint) > distanceToLose)
-            {
-                pursuit = false;
-                pursuitCounter = keepPursuitTime;
-            }
+            // Actualiza el destino del enemigo para seguir al jugador
+            agent.SetDestination(playerTransform.position);
+        }
+    }
 
-            if(shotWaitCounter > 0)
-            {
-                shotWaitCounter-= Time.deltaTime;
-                if(shotWaitCounter <=0)
-                {
-                    shootTimeCounter = timeToShoot;
-                }
-                anim.SetBool("isMoving", true);
-            }
-            else
-            {
-                if (PlayerController.Instance.gameObject.activeInHierarchy)
-                {
-                    shootTimeCounter -= Time.deltaTime;
+    void Shoot()
+    {
+        // Apunta el firePoint hacia el jugador
+        firePoint.LookAt(playerTransform.position + new Vector3(0f, 1.5f, 0f));
 
-                    if (shootTimeCounter > 0)
-                    {
-                        fireCount -= Time.deltaTime;
+        // Crea una bala y la dispara
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
 
-                        if (fireCount <= 0)
-                        {
-                            fireCount = fireRate;
-                            firePoint.LookAt(PlayerController.Instance.transform.position + new Vector3(0f, 1.5f, 0f));
-                            Vector3 targetDirection = PlayerController.Instance.transform.position - transform.position;
-                            float angle = Vector3.SignedAngle(targetDirection, transform.forward, Vector3.up);
-                            if (Mathf.Abs(angle) < 30f)
-                            {
-                                Instantiate(bullet, firePoint.position, firePoint.rotation);
-                                anim.SetTrigger("fireShot");
-                            }
-                            else
-                            {
-                                shotWaitCounter = waitBetweenShots;
-                            }
-                        }
-                        agent.destination = transform.position;
-                    }
-                    else
-                    {
-                        shotWaitCounter = waitBetweenShots;
-                    }
-                }
-                anim.SetBool("isMoving", false);
-            }
+        // Inicia la animación de disparo
+        anim.SetTrigger("fireShot");
+
+        // Desactiva la capacidad de disparar temporalmente para evitar que el enemigo dispare demasiado rápido
+        canShoot = false;
+        timeSinceLastShot = 0;
+    }
+
+    void FixedUpdate()
+    {
+        // Actualiza el tiempo transcurrido desde el último disparo
+        timeSinceLastShot += Time.deltaTime;
+
+        // Si ha pasado suficiente tiempo desde el último disparo, habilita la capacidad de disparar nuevamente
+        if (timeSinceLastShot > fireRate)
+        {
+            canShoot = true;
         }
     }
 }
