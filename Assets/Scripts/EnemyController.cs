@@ -12,7 +12,12 @@ public class EnemyController : MonoBehaviour
     private Transform playerTransform;
     private float timeSinceLastShot;
     private bool canShoot = true;
-
+    [SerializeField] float timeToForget;
+    [SerializeField] float newtimeToForget;
+    [SerializeField] private Transform playerTransforms;
+    [SerializeField] private float laserDistance;
+    RaycastHit hit;
+    bool pursuit = false;
     void Start()
     {
         playerTransform = PlayerController.Instance.transform;
@@ -21,6 +26,55 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
+        Vector3 vectorToChar = playerTransforms.position - transform.position;
+        Vector3 vectorToChar2 = vectorToChar.normalized;
+
+
+        if (Physics.Raycast(transform.position, vectorToChar2, out hit, laserDistance))
+        {
+            pursuit = true;
+            Debug.Log("detectado");
+            Move();
+        }
+        else if (pursuit == true)
+        {
+            Debug.Log("en un rato me olvido");
+            Move();
+            timeToForget -= Time.deltaTime;
+
+            if (timeToForget <= 0)
+            {
+                pursuit = false;
+                timeToForget = newtimeToForget;
+
+            }
+        }
+
+
+
+
+
+    }
+
+    void Shoot()
+    {
+        // Apunta el firePoint hacia el jugador
+        firePoint.LookAt(playerTransform.position + new Vector3(0f, 1.5f, 0f));
+
+        // Crea una bala y la dispara
+        Instantiate(bullet, firePoint.position, firePoint.rotation);
+
+        // Inicia la animación de disparo
+        anim.SetTrigger("fireShot");
+
+        // Desactiva la capacidad de disparar temporalmente para evitar que el enemigo dispare demasiado rápido
+        canShoot = false;
+        timeSinceLastShot = 0;
+    }
+
+    public void Move()
+    {
+
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
         if (distanceToPlayer < agent.stoppingDistance)
@@ -44,23 +98,9 @@ public class EnemyController : MonoBehaviour
             // Actualiza el destino del enemigo para seguir al jugador
             agent.SetDestination(playerTransform.position);
         }
+
     }
 
-    void Shoot()
-    {
-        // Apunta el firePoint hacia el jugador
-        firePoint.LookAt(playerTransform.position + new Vector3(0f, 1.5f, 0f));
-
-        // Crea una bala y la dispara
-        Instantiate(bullet, firePoint.position, firePoint.rotation);
-
-        // Inicia la animación de disparo
-        anim.SetTrigger("fireShot");
-
-        // Desactiva la capacidad de disparar temporalmente para evitar que el enemigo dispare demasiado rápido
-        canShoot = false;
-        timeSinceLastShot = 0;
-    }
 
     void FixedUpdate()
     {

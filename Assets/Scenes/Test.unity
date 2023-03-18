@@ -707,6 +707,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
         type: 3}
+      propertyPath: timeToForget
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: laserDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: newtimeToForget
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
+      propertyPath: playerTransforms
+      value: 
+      objectReference: {fileID: 1436201567}
+    - target: {fileID: 1416069969268367263, guid: becb888111ea86e4281e441e7524fb25,
+        type: 3}
       propertyPath: waitBetweenShots
       value: 1
       objectReference: {fileID: 0}
@@ -3580,7 +3600,7 @@ Transform:
   m_GameObject: {fileID: 1527997847}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.830182, y: -2.8054476, z: -4.907224}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 896828099}
