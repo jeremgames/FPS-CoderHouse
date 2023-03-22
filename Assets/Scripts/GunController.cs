@@ -28,7 +28,6 @@ public class GunController : MonoBehaviour
 
     public void GetAmmo()
     {
-        PlayerController.Instance.activeGun.GetAmmo();
         currentAmmo += pickupAmount;
         UIController.Instance.ammoSlider.value = currentAmmo;
     }

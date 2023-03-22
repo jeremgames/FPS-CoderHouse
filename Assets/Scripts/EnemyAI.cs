@@ -12,6 +12,8 @@ public class EnemyAI : MonoBehaviour
     public float shootRange = 3f; // distancia de disparo del enemigo
     public GameObject bulletPrefab; // prefab de la bala del enemigo
     public Transform firePoint; // punto de origen de la bala
+    public float timeToShoot = 0.5f; // tiempo entre cada disparo
+    private float nextShootTime; //tiempo para el siguiente disparo
 
     private int currentWaypoint = 0; // índice del punto de patrulla actual
     private bool isDetectingPlayer = false; // si el enemigo ha detectado al jugador
@@ -40,11 +42,14 @@ public class EnemyAI : MonoBehaviour
                 // si el jugador está fuera del alcance de disparo, perseguirlo
                 transform.Translate(speed * Time.deltaTime * direction.normalized, Space.World);
                 transform.LookAt(player);
+                nextShootTime = Time.time + timeToShoot;
             }
-            else
+            else if (Time.time > nextShootTime)
             {
                 // si el jugador está dentro del alcance de disparo, disparar
                 Shoot();
+                // actualiza el tiempo entre cada disparo
+                nextShootTime = Time.time + timeToShoot;
             }
         }
         else

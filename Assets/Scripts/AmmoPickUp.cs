@@ -8,7 +8,7 @@ public class AmmoPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !collected)
+        if(other.CompareTag("Player") && !collected)
         {
             PlayerController.Instance.activeGun.GetAmmo();
             collected= true;

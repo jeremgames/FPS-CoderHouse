@@ -135,7 +135,6 @@ public class PlayerController : MonoBehaviour
             activeGun.currentAmmo--;
             Instantiate(activeGun.bullet, firePoint.position, firePoint.rotation);
             activeGun.fireCounter = activeGun.fireRate;
-            //UIController.Instance.ammoSlider.value = currentAmmo;
         }
     }
 
@@ -149,7 +148,6 @@ public class PlayerController : MonoBehaviour
         }
         activeGun = allGuns[currentGun];
         activeGun.gameObject.SetActive(true);
-        //UIController.Instance.ammoSlider.value = currentAmmo;
     }
 
     public void AddGun(string gunToAdd)
