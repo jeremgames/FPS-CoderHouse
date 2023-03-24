@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267885865}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.020000458, y: 0.08400011, z: 1.27}
+  m_LocalPosition: {x: -0.020000458, y: 0.08400011, z: 1.287}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494114297}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.453, z: 0.233}
+  m_LocalPosition: {x: 0, y: 0.453, z: 0.259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -71,7 +71,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494114297}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.11
@@ -88,7 +88,6 @@ GameObject:
   - component: {fileID: 3530666342128246088}
   - component: {fileID: 3530666342128246091}
   - component: {fileID: -7138471715138689205}
-  - component: {fileID: 1416069969268367263}
   - component: {fileID: 264341427}
   - component: {fileID: 364027810}
   m_Layer: 9
@@ -184,27 +183,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 100
---- !u!114 &1416069969268367263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3530666342128246090}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f82247eddf0c34c9a9274f4328ca35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 264341427}
-  bullet: {fileID: 6205030029203381078, guid: 08c531c1b26447446bb2d059b6480e76, type: 3}
-  firePoint: {fileID: 267885866}
-  fireRate: 1
-  anim: {fileID: 0}
-  timeToForget: 5
-  newtimeToForget: 5
-  playerTransforms: {fileID: 0}
-  laserDistance: 2
 --- !u!195 &264341427
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -212,7 +190,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3530666342128246090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 5
@@ -250,6 +228,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6205030029203381078, guid: 08c531c1b26447446bb2d059b6480e76,
     type: 3}
   firePoint: {fileID: 267885866}
+  timeToShoot: 0.5
 --- !u!1 &8272294548947105235
 GameObject:
   m_ObjectHideFlags: 0
